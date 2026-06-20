@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>CraftWeb — Beta 1.8</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <canvas id="game-canvas"></canvas>
+
+  <div id="hud" class="hidden">
+    <div id="crosshair"></div>
+    <div id="debug"></div>
+    <div id="mode-label"></div>
+    <div id="time-display"></div>
+
+    <div id="ui-bottom">
+      <div id="hud-bars">
+        <div id="hud-hearts" class="hud-row"></div>
+        <div id="hud-food"   class="hud-row"></div>
+      </div>
+      <div id="hotbar-wrap">
+        <div id="block-label"></div>
+        <div id="hotbar"></div>
+      </div>
+    </div>
+  </div>
+
+  <div id="pause-screen" class="hidden">
+    <h2>PAUSE</h2>
+    <button class="mc-btn" id="btn-resume">▶  Reprendre</button>
+    <button class="mc-btn" id="btn-to-menu">⌂  Menu principal</button>
+  </div>
+
+  <div id="menu">
+    <div id="menu-box">
+      <h1 id="game-title">CraftWeb</h1>
+      <p class="subtitle">Beta 1.8 — Edition Web</p>
+      <div id="menu-buttons">
+        <button class="mc-btn" id="btn-survival">⚔  Mode Survie</button>
+        <button class="mc-btn" id="btn-creative">✦  Mode Créatif</button>
+      </div>
+      <p class="hint">ZQSD · Espace · Clic G/D · Molette · Échap · F3</p>
+    </div>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
