@@ -1,0 +1,527 @@
+/* ============================================
+   CraftWeb — Beta 1.8 — Edition Web
+   Style CSS complet
+   ============================================ */
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+    font-family: 'Courier New', monospace;
+    user-select: none;
+    -webkit-user-select: none;
+    color: #fff;
+}
+
+#game-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    display: block;
+}
+
+/* ============================
+   LOADING SCREEN
+   ============================ */
+#loading-screen {
+    position: fixed;
+    inset: 0;
+    background: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 500;
+}
+.loading-box {
+    text-align: center;
+    width: 320px;
+}
+.loading-box h2 {
+    color: #FFFF55;
+    font-size: 38px;
+    letter-spacing: 4px;
+    text-shadow: 3px 3px 0 #5a5a00;
+    margin-bottom: 24px;
+}
+.loading-bar {
+    width: 100%;
+    height: 16px;
+    background: #000;
+    border: 2px solid #555;
+    padding: 1px;
+}
+#loading-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(to right, #4a8a4a, #6a4a8a);
+    transition: width 0.3s ease;
+}
+#loading-text {
+    color: #aaa;
+    font-size: 11px;
+    margin-top: 8px;
+}
+#loading-screen.hidden { display: none; }
+
+/* ============================
+   HUD
+   ============================ */
+#hud {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 10;
+}
+#hud.hidden { display: none; }
+
+#crosshair {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 22px;
+    height: 22px;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+}
+#crosshair::before, #crosshair::after {
+    content: '';
+    position: absolute;
+    background: rgba(255,255,255,0.9);
+    box-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+}
+#crosshair::before {
+    width: 2px;
+    height: 22px;
+    top: 0;
+    left: 10px;
+}
+#crosshair::after {
+    width: 22px;
+    height: 2px;
+    top: 10px;
+    left: 0;
+}
+
+#title-bar {
+    position: absolute;
+    top: 8px;
+    left: 10px;
+    color: #fff;
+    font-size: 13px;
+    font-weight: bold;
+    text-shadow: 1px 1px 0 #000, 2px 2px 0 rgba(0,0,0,0.5);
+    pointer-events: none;
+}
+.version-tag {
+    color: #88ccff;
+    font-size: 10px;
+    margin-left: 6px;
+}
+
+#debug {
+    position: absolute;
+    top: 30px;
+    left: 10px;
+    color: #fff;
+    font-size: 11px;
+    line-height: 1.7;
+    text-shadow: 1px 1px 0 #000;
+    display: none;
+    pointer-events: none;
+    background: rgba(0,0,0,0.4);
+    padding: 6px 8px;
+    border-left: 2px solid #88ccff;
+}
+#debug.show { display: block; }
+
+#mode-label {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    color: rgba(255,255,255,.65);
+    font-size: 12px;
+    text-shadow: 1px 1px 0 #000;
+    pointer-events: none;
+}
+
+#time-display {
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    font-size: 13px;
+    text-shadow: 1px 1px 0 #000;
+    pointer-events: none;
+}
+
+#fps-display {
+    position: absolute;
+    top: 28px;
+    right: 10px;
+    color: #88ff88;
+    font-size: 11px;
+    text-shadow: 1px 1px 0 #000;
+    pointer-events: none;
+}
+
+/* ============================
+   BOTTOM HUD (hearts, food, hotbar)
+   ============================ */
+#ui-bottom {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    pointer-events: none;
+}
+
+#hud-bars {
+    display: flex;
+    gap: 30px;
+    align-items: flex-end;
+    margin-bottom: 4px;
+}
+
+.hud-row {
+    display: flex;
+    flex-direction: row;
+    gap: 1px;
+}
+.hud-row canvas {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    width: 20px;
+    height: 20px;
+}
+
+#hotbar-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+#block-label {
+    font-size: 12px;
+    font-weight: bold;
+    opacity: 0;
+    transition: opacity .3s;
+    min-height: 16px;
+    color: #fff;
+    text-shadow: 1px 1px 0 #000;
+}
+
+#hotbar {
+    display: flex;
+    gap: 2px;
+    background: rgba(0,0,0,.55);
+    padding: 4px;
+    border: 2px solid rgba(0,0,0,.7);
+    outline: 1px solid rgba(255,255,255,.15);
+    pointer-events: auto;
+}
+
+.slot {
+    width: 42px;
+    height: 42px;
+    background: rgba(139,139,139,.2);
+    border: 1px solid rgba(0,0,0,.45);
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.slot:hover {
+    background: rgba(200,200,200,.25);
+}
+.slot.selected {
+    background: rgba(255,255,255,.12);
+    border: 2px solid rgba(255,255,255,.9);
+    box-shadow: inset 0 0 0 1px rgba(0,0,0,.5);
+}
+.slot canvas {
+    width: 32px;
+    height: 32px;
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    pointer-events: none;
+}
+.slot-num {
+    position: absolute;
+    bottom: 1px;
+    right: 2px;
+    font-size: 9px;
+    color: #fff;
+    text-shadow: 1px 1px 0 #000;
+}
+
+/* ============================
+   DAMAGE FLASH
+   ============================ */
+#damage-flash {
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, transparent 30%, rgba(180,0,0,0.5) 100%);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.15s;
+}
+#damage-flash.flash {
+    opacity: 1;
+}
+
+/* ============================
+   DEATH SCREEN
+   ============================ */
+#death-screen {
+    position: absolute;
+    inset: 0;
+    background: rgba(80,0,0,0.6);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    pointer-events: auto;
+    z-index: 100;
+}
+#death-screen.hidden { display: none; }
+#death-screen h1 {
+    color: #fff;
+    font-size: 48px;
+    letter-spacing: 6px;
+    text-shadow: 3px 3px 0 #400;
+}
+
+/* ============================
+   MAIN MENU
+   ============================ */
+#menu {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url('assets/textures/gui/background.png') repeat center / 96px;
+    z-index: 200;
+}
+#menu.hidden { display: none; }
+
+#menu-box {
+    text-align: center;
+    padding: 50px 60px 40px;
+    background: rgba(0,0,0,.5);
+    box-shadow: 0 8px 40px rgba(0,0,0,.9);
+    border: 2px solid rgba(255,255,255,.08);
+}
+
+#game-title {
+    font-size: 58px;
+    letter-spacing: 5px;
+    color: #FFFF55;
+    text-shadow:
+        3px 3px 0 #7a7a00,
+        -1px -1px 0 #FFFFaa,
+        -2px -2px 8px rgba(255,255,0,.3);
+    margin-bottom: 4px;
+}
+
+.subtitle {
+    color: #aaa;
+    font-size: 14px;
+    margin-bottom: 30px;
+    letter-spacing: 1px;
+}
+
+#menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.hint {
+    color: #888;
+    font-size: 11px;
+    margin-top: 4px;
+    letter-spacing: 0.5px;
+}
+
+/* ============================
+   BUTTONS (Minecraft-style)
+   ============================ */
+.mc-btn {
+    width: 260px;
+    padding: 12px 0;
+    background: linear-gradient(to bottom, #6a6a6a, #3e3e3e);
+    border-top: 2px solid #8e8e8e;
+    border-left: 2px solid #8e8e8e;
+    border-right: 2px solid #1a1a1a;
+    border-bottom: 2px solid #1a1a1a;
+    color: #fff;
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 14px;
+    text-shadow: 1px 1px 0 #000;
+    cursor: pointer;
+    letter-spacing: 1px;
+    transition: filter .1s;
+}
+.mc-btn:hover {
+    filter: brightness(1.3);
+    border-top-color: #aacfee;
+    border-left-color: #aacfee;
+    color: #ffffaa;
+}
+.mc-btn:active {
+    transform: translateY(1px) scale(.99);
+}
+.mc-btn.btn-danger {
+    background: linear-gradient(to bottom, #8a3a3a, #5a1a1a);
+    border-top-color: #aa5a5a;
+    border-left-color: #aa5a5a;
+}
+.mc-btn.btn-danger:hover {
+    border-top-color: #ffaaaa;
+    border-left-color: #ffaaaa;
+    color: #ffdddd;
+}
+
+/* ============================
+   PAUSE SCREEN
+   ============================ */
+#pause-screen {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.55);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    z-index: 150;
+}
+#pause-screen.hidden { display: none; }
+#pause-screen h2 {
+    color: #fff;
+    font-size: 30px;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 0 #000;
+}
+
+/* ============================
+   INVENTORY SCREEN
+   ============================ */
+#inventory-screen {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 140;
+    pointer-events: auto;
+}
+#inventory-screen.hidden { display: none; }
+#inventory-box {
+    background: rgba(20,20,20,.95);
+    border: 3px solid #555;
+    padding: 24px 30px;
+    text-align: center;
+    min-width: 420px;
+    box-shadow: 0 8px 40px rgba(0,0,0,.9);
+}
+#inventory-box h2 {
+    color: #FFFF55;
+    font-size: 22px;
+    margin-bottom: 16px;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 0 #5a5a00;
+}
+#inventory-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 4px;
+    margin-bottom: 14px;
+}
+.inv-slot {
+    width: 50px;
+    height: 50px;
+    background: rgba(139,139,139,.25);
+    border: 2px solid rgba(0,0,0,.45);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+.inv-slot:hover {
+    background: rgba(200,200,200,.3);
+    border-color: rgba(255,255,255,.6);
+}
+.inv-slot canvas {
+    width: 36px;
+    height: 36px;
+    image-rendering: pixelated;
+}
+.inv-slot .inv-name {
+    position: absolute;
+    bottom: 2px;
+    left: 0; right: 0;
+    text-align: center;
+    font-size: 8px;
+    color: #ccc;
+    text-shadow: 1px 1px 0 #000;
+    pointer-events: none;
+}
+
+/* ============================
+   CHAT BOX
+   ============================ */
+#chat-box {
+    position: absolute;
+    bottom: 80px;
+    left: 20px;
+    width: 420px;
+    z-index: 50;
+    pointer-events: auto;
+}
+#chat-box.hidden { display: none; }
+#chat-messages {
+    background: rgba(0,0,0,.4);
+    padding: 6px 8px;
+    max-height: 140px;
+    overflow-y: auto;
+    font-size: 11px;
+    color: #fff;
+    text-shadow: 1px 1px 0 #000;
+    line-height: 1.5;
+}
+#chat-messages .chat-line { margin-bottom: 2px; }
+#chat-messages .chat-line.system { color: #ffaa55; }
+#chat-messages .chat-line.player { color: #aaffaa; }
+#chat-input {
+    width: 100%;
+    background: rgba(0,0,0,.6);
+    border: 2px solid #555;
+    color: #fff;
+    padding: 5px 8px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    outline: none;
+    margin-top: 4px;
+}
+#chat-input:focus {
+    border-color: #88ccff;
+}
