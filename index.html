@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>CraftWeb — Beta 1.8</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <canvas id="game-canvas"></canvas>
+
+  <!-- Loading screen -->
+  <div id="loading-screen">
+    <div class="loading-box">
+      <h2>CraftWeb</h2>
+      <div class="loading-bar"><div id="loading-fill"></div></div>
+      <p id="loading-text">Chargement...</p>
+    </div>
+  </div>
+
+  <!-- HUD -->
+  <div id="hud" class="hidden">
+    <div id="crosshair"></div>
+    <div id="title-bar">Minecraft <span class="version-tag">Beta 1.8</span></div>
+    <div id="debug"></div>
+    <div id="mode-label"></div>
+    <div id="time-display"></div>
+    <div id="fps-display"></div>
+
+    <div id="ui-bottom">
+      <div id="hud-bars">
+        <div id="hud-hearts" class="hud-row"></div>
+        <div id="hud-food"   class="hud-row"></div>
+      </div>
+      <div id="hotbar-wrap">
+        <div id="block-label"></div>
+        <div id="hotbar"></div>
+      </div>
+    </div>
+
+    <!-- Damage flash overlay -->
+    <div id="damage-flash"></div>
+    <!-- Death screen -->
+    <div id="death-screen" class="hidden">
+      <h1>Vous êtes mort</h1>
+      <button class="mc-btn" id="btn-respawn">Respawn</button>
+      <button class="mc-btn btn-danger" id="btn-death-menu">Menu principal</button>
+    </div>
+  </div>
+
+  <!-- Pause screen -->
+  <div id="pause-screen" class="hidden">
+    <h2>PAUSE</h2>
+    <button class="mc-btn" id="btn-resume">▶  Reprendre</button>
+    <button class="mc-btn" id="btn-to-menu">⌂  Menu principal</button>
+    <button class="mc-btn btn-danger" id="btn-reset">⚠  Réinitialiser le monde</button>
+  </div>
+
+  <!-- Main menu -->
+  <div id="menu">
+    <div id="menu-bg"></div>
+    <div id="menu-box">
+      <div id="menu-logo">
+        <img id="mc-logo" src="assets/textures/gui/mclogo.png" alt="Minecraft"/>
+        <div id="mc-edition">Beta 1.8</div>
+      </div>
+      <div id="menu-splash">
+        <span id="splash-text">Also try Terraria!</span>
+      </div>
+      <div id="menu-buttons">
+        <button class="mc-btn" id="btn-survival">Singleplayer</button>
+        <div id="menu-bottom">
+          <div id="menu-bottom-left">Minecraft Beta 1.8</div>
+          <div id="menu-bottom-right">Copyright Mojang AB</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inventory modal -->
+  <div id="inventory-screen" class="hidden">
+    <div id="inventory-box">
+      <h2>Inventaire</h2>
+      <div id="inventory-grid"></div>
+      <p class="hint">Cliquez sur un bloc pour le sélectionner dans la hotbar</p>
+    </div>
+  </div>
+
+  <!-- Chat box -->
+  <div id="chat-box" class="hidden">
+    <div id="chat-messages"></div>
+    <input id="chat-input" type="text" placeholder="Tapez votre message..." maxlength="100"/>
+  </div>
+
+  <script type="module" src="js/main.js?v10"></script>
+</body>
+</html>
